@@ -22,6 +22,7 @@ ADD res/requirements.txt ${HOME}/res/requirements.txt
 # Install some tools
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
+    tini \
     apt \
     apt-utils \
     ca-certificates \
@@ -138,4 +139,6 @@ RUN chmod a+x ${START_DIR}/entrypoint.sh && \
 
 EXPOSE ${VNC_PORT}
 USER zoomrec
+
+ENTRYPOINT ["/usr/bin/tini", "-g", "-e", "143", "--"]
 CMD ${START_DIR}/entrypoint.sh
