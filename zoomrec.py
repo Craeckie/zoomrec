@@ -411,14 +411,17 @@ def join(meet_id, meet_pw, duration, description):
         command += " -f pulse -ac 2 -i 1"
         ## Video
         command += " -f x11grab"
+        command += " -r 15"
         command += " -draw_mouse 0"
         command += " -framerate 25"
         command += " -s " + resolution
         command += " -i " + disp
-        #command += " -acodec pcm_s16le"
-        command += " -c:v libx264rgb"
-        command += " -crf 0"
+        command += " -acodec opus -b:a 64k"
+        command += " -vcodec libx264"
+        command += " -crf 30"
         command += " -preset ultrafast"
+        command += " -tune stillimage"
+        command += " -threads 0 -async 1 -vsync 1"
         command += " "
         command += filename
 
@@ -859,14 +862,17 @@ def join(meet_id, meet_pw, duration, description):
     command += " -f pulse -ac 2 -i 1"
     ## Video
     command += " -f x11grab"
+    command += " -r 15"
     command += " -draw_mouse 0"
     command += " -framerate 25"
     command += " -s " + resolution
     command += " -i " + disp
-    #command += " -acodec pcm_s16le"
-    command += " -c:v libx264rgb"
-    command += " -crf 0"
+    command += " -acodec opus -b:a 64k"
+    command += " -vcodec libx264"
+    command += " -crf 30"
     command += " -preset ultrafast"
+    command += " -tune stillimage"
+    command += " -threads 0 -async 1 -vsync 1"
     command += " "
     command += filename
 
