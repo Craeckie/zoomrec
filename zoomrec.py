@@ -1053,4 +1053,8 @@ if __name__ == '__main__':
 
 while True:
     schedule.run_pending()
-    time.sleep(15)
+    time.sleep(30)
+    time_of_next_run = schedule.next_run()
+    time_now = datetime.now()
+    remaining = time_of_next_run - time_now
+    print(f"Next meeting in {remaining}", end="\r", flush=True)
