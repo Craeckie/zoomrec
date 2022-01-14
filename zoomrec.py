@@ -416,7 +416,7 @@ def join(meet_id, meet_pw, duration, description):
         command += " -framerate 25"
         command += " -s " + resolution
         command += " -i " + disp
-        command += " -acodec opus -b:a 64k"
+        command += " -acodec libopus -b:a 64k"
         command += " -vcodec libx264"
         command += " -crf 30"
         command += " -preset ultrafast"
@@ -867,7 +867,7 @@ def join(meet_id, meet_pw, duration, description):
     command += " -framerate 25"
     command += " -s " + resolution
     command += " -i " + disp
-    command += " -acodec opus -b:a 64k"
+    command += " -acodec libopus -b:a 64k"
     command += " -vcodec libx264"
     command += " -crf 30"
     command += " -preset ultrafast"
