@@ -8,7 +8,7 @@ import requests
 import re
 import pyautogui
 from signal import SIGQUIT, SIGKILL
-from subprocess import Popen, PIPE, DEVNULL
+from subprocess import Popen, PIPE, DEVNULL, run
 from threading import Thread
 from csv import DictReader
 from psutil import process_iter, NoSuchProcess, AccessDenied, ZombieProcess
@@ -393,6 +393,14 @@ def join(meet_id, meet_pw, duration, description):
     ffmpeg_debug = None
 
     logging.info("Join meeting: " + MEETING_DESCRIPTION)
+
+    logging.debug("Starting pulseaudio")
+    pulseaudio = run(["pulseaudio", "-D", "--exit-idle-time=-1", "--log-level=debug"],
+                     env={
+                         "DISPLAY": ":1",
+                         "XDG_RUNTIME_DIR": "/tmp/runtime-zoomrec",
+                     },
+                     preexec_fn=os.setsid)
 
     if DEBUG:
         # Start recording
@@ -911,6 +919,15 @@ def join(meet_id, meet_pw, duration, description):
     atexit.unregister(os.killpg)
     bg_thread.terminate()
     hvo_thread.terminate()
+
+    logging.debug("Stopping pulseaudio")
+    pulseaudio = run(["pulseaudio", "-k"],
+                     env={
+                         "DISPLAY": ":1",
+                         "XDG_RUNTIME_DIR": "/tmp/runtime-zoomrec",
+                     },
+                     preexec_fn=os.setsid)
+
 
     if not ONGOING_MEETING:
         try:
