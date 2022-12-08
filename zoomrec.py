@@ -426,6 +426,7 @@ def join(meet_id, meet_pw, duration, description):
         command += " -i " + disp
         command += " -acodec libopus -b:a 64k"
         command += " -vcodec libx264"
+        command += " -pix_fmt yuv420p"
         command += " -crf 30"
         command += " -preset ultrafast"
         command += " -tune stillimage"
@@ -877,6 +878,7 @@ def join(meet_id, meet_pw, duration, description):
     command += " -i " + disp
     command += " -acodec libopus -b:a 64k"
     command += " -vcodec libx264"
+    command += " -pix_fmt yuv420p"
     command += " -crf 30"
     command += " -preset ultrafast"
     command += " -tune stillimage"
